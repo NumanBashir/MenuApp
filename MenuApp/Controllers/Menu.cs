@@ -50,6 +50,26 @@ namespace MenuApp.Controllers
 
             return View(dish);
         }
-        
+
+        // GET: Menu/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Menu/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Dish dish)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(dish);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(dish);
+        }
+
     }
 }
